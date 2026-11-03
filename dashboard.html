@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SP Realty.Com</title>
+</head>
+<body>
+    <script>
+        function Register() {
+            const name=document.getElementById("name").value.trim();
+            const email=document.getElementById("email").value.toLowerCase().trim();
+            const pwd=document.getElementById("password").value.trim();
+            const number=document.getElementById("number").value.trim();
+        const users= JSON.parse(localStorage.getItem ("users")) || [];
+        const superCharRegex= /[@#$%^&*]/ ;
+        if (users.find(user=>user.email.toLowerCase()===email.toLowerCase)) {
+           alert("email already registered.pls login") ;
+        }
+        else if (!superCharRegex.test(pwd)) {
+            alert("password must include special character");
+        }
+        else{
+        let newUser={ name:name, email:email, pwd: pwd, number:number};
+        users.push(newUser);
+            localStorage.setItem("users",JSON.stringify(users));
+            showLogin();
+        }
+        }
+        function Login() {
+            const email=document.getElementById("name").value.trim()
+            const pwd=document.getElementById("email").value.trim();
+            let users=JSON.parse(localStorage.getItem("users"));
+            let found=users.find(user=>user.email.toLowerCase()===email && user.pwd===pwd);
+            if (found) {
+                localStorage.setItem("users",JSON.stringify(currentUser));
+                showDashbord();
+              alert("login successful");  
+            }
+            else{
+                alert("email or password incorrect. pls register")
+            }
+            showRegister();
+        }
+    </script>
+</body>
+</html>
